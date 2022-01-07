@@ -1,7 +1,7 @@
 import React from 'react'
 import { scaleLinear } from 'd3-scale'
 
-export default function d3() {
+const D3 = () => {
   const scaleColor = scaleLinear().domain([0, 50]).range(['red', 'blue', 'green'])
   return (
     <div className="flex-col">
@@ -15,3 +15,5 @@ export default function d3() {
     </div>
   )
 }
+
+export default D3

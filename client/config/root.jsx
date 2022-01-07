@@ -9,6 +9,7 @@ import Startup from './startup'
 
 import Main from '../components/main'
 import D3 from '../components/d3'
+import D3LineCircle from '../components/d3linecircle'
 
 const OnlyAnonymousRoute = ({ component: Component, ...rest }) => {
   const { user, token } = useSelector((s) => s.auth)
@@ -34,6 +35,7 @@ const Root = () => {
           <Switch>
             <Route exact path="/" component={() => <Main />} />
             <Route exact path="/d3" component={() => <D3 />} />
+            <Route exact path="/d3lc" component={() => <D3LineCircle />} />
             <OnlyAnonymousRoute exact path="/anonymous" component={() => <Main />} />
             <PrivateRoute exact path="/private" component={() => <Main />} />
           </Switch>
