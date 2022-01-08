@@ -1,0 +1,60 @@
+import React, { useEffect, useState } from 'react'
+import {
+  select, line, curveBasis, curveCardinal, curveMonotoneX, curveCatmullRom
+} from 'd3'
+
+const curveArray = [
+  { d3Curve: curveBasis, color: 'purple' },
+  { d3Curve: curveCardinal, color: 'orange' },
+  { d3Curve: curveMonotoneX, color: 'blue' },
+  { d3Curve: curveCatmullRom, color: 'grey' }
+]
+
+const DEF_WIDTH = 400
+const DEF_HEIGHT = 400
+
+const lineData = [
+  { x: 1, y: 5 },
+  { x: 20, y: 20 },
+  { x: 40, y: 10 },
+  { x: 60, y: 40 },
+  { x: 80, y: 5 },
+  { x: 100, y: 60 }
+]
+
+const drawLine = () => {
+  curveArray.forEach(({ d3Curve, color }) => {
+    const chartLine = line()
+      .curve(d3Curve)
+      .x((d) => 5 * d.x)
+      .y((d) => 5 * d.y)
+    select('#chart')
+      .append('path')
+      .datum(lineData)
+      .attr('stroke', color)
+      .attr('stroke-width', '2.5')
+      .attr('fill', 'none')
+      .attr('d', chartLine)
+  })
+}
+
+const D3Path = () => {
+  const [width] = useState(DEF_WIDTH)
+  const [height] = useState(DEF_HEIGHT)
+  useEffect(() => {
+    drawLine({ width, height })
+  }, [])
+  return (
+    <div>
+      <div className="min-w-screen min-h-screen bg-gray-900 flex flex-wrap content-around justify-center px-5 py-5">
+        <div className="bg-indigo-600 text-white rounded shadow-xl py-5 px-5 w-full lg:w-10/12 xl:w-3/4">
+          <div className="flex items-end">
+            <svg width={width} height={height} id="chart" />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default D3Path
